@@ -34,11 +34,25 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
   function createBoard() {
     let initialBoard = [];
     // TODO: create array-of-arrays of true/false values
+    for(let y = 0; y < nrows; y++){
+      initialBoard.push([]);
+      for(let x = 0; x < ncols; x++){
+        initialBoard.push(Math.random() < chanceLightStartsOn);
+      }
+    }
     return initialBoard;
   }
 
   function hasWon() {
     // TODO: check the board in state to determine whether the player has won.
+    for(let y = 0; y < nrows; y++){
+      for(let x = 0; x < ncols; x++){
+        if(board[y][x]) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   function flipCellsAround(coord) {
