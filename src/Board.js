@@ -37,7 +37,7 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
     for(let y = 0; y < nrows; y++){
       initialBoard.push([]);
       for(let x = 0; x < ncols; x++){
-        initialBoard.push(Math.random() < chanceLightStartsOn);
+        initialBoard[y].push(Math.random() < chanceLightStartsOn);
       }
     }
     return initialBoard;
@@ -45,14 +45,7 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
 
   function hasWon() {
     // TODO: check the board in state to determine whether the player has won.
-    for(let y = 0; y < nrows; y++){
-      for(let x = 0; x < ncols; x++){
-        if(board[y][x]) {
-          return false;
-        }
-      }
-    }
-    return true;
+    return board.every(row => row.every(col => !col));
   }
 
   function flipCellsAround(coord) {
@@ -68,10 +61,15 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
       };
 
       // TODO: Make a (deep) copy of the oldBoard
-
+      let boardCopy = oldBoard.map(row => [...row]);
       // TODO: in the copy, flip this cell and the cells around it
-
+      flipCell(y, x, boardCopy);
+      flipCell(y-1, x, boardCopy);
+      flipCell(y+1, x, boardCopy);
+      flipCell(y, x-1, boardCopy);
+      flipCell(y, x+1, boardCopy);
       // TODO: return the copy
+      return boardCopy;
     });
   }
 
