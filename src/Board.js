@@ -81,7 +81,7 @@ function Board({ nrows=5, ncols=6, chanceLightStartsOn=.25 }) {
 
   // make table board
   let tableBoard = board.map((row, y) => 
-    <tr>{row.map((cell, x) => (
+    <tr key={y}>{row.map((cell, x) => (
         <Cell 
           key={`${y}-${x}`} 
           flipCellsAroundMe={() => flipCellsAround(`${y}-${x}`)} 
